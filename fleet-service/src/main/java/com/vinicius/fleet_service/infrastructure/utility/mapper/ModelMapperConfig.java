@@ -12,14 +12,14 @@ import com.vinicius.fleet_service.application.utility.Mapper;
 public class ModelMapperConfig {
 
     @Bean
-    public Mapper mapper() {
+    Mapper mapper() {
         ModelMapper modelMapper = new ModelMapper();
         configuration(modelMapper);
         return modelMapper::map;
     }
 
     private void configuration(ModelMapper modelMapper) {
-        modelMapper.getConfiguration()
+        modelMapper.getConfiguration()        
                 .setSourceNamingConvention(NamingConventions.NONE)
                 .setDestinationNamingConvention(NamingConventions.NONE)
                 .setMatchingStrategy(MatchingStrategies.STRICT);

@@ -8,6 +8,7 @@ import com.vinicius.fleet_service.api.dto.response.DriverResponse;
 import com.vinicius.fleet_service.domain.service.Driver.DriverQueryService;
 import com.vinicius.fleet_service.domain.service.Driver.DriverRegistrationService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -40,13 +41,13 @@ public class DriverController {
     }
 
     @PostMapping
-    public DriverResponse createDriver(@RequestBody DriverCrudRequest driverRequest) {
+    public DriverResponse createDriver(@Valid @RequestBody DriverCrudRequest driverRequest) {
         return driverRegistrationService.createDriver(driverRequest);
     }
 
-
     @PutMapping("/{driverId}")
-    public DriverResponse updateDriver(@PathVariable UUID driverId, @RequestBody DriverCrudRequest driverRequest) {
+    public DriverResponse updateDriver(@PathVariable UUID driverId,
+            @Valid @RequestBody DriverCrudRequest driverRequest) {
         return driverRegistrationService.updateDriver(driverId, driverRequest);
     }
 
