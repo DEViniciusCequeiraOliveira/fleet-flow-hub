@@ -1,7 +1,7 @@
 server.port: 8081
 
-spring
-  application
+spring:
+  application:
     name: fleet-service
   jpa:
     hibernate:
