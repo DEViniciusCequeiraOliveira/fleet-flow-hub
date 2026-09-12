@@ -3,6 +3,9 @@ package com.vinicius.fleet_service.domain.model;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,10 +22,16 @@ import lombok.Setter;
 @Setter(AccessLevel.PRIVATE)
 public class Driver {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Setter 
     private String name;
+    @Setter 
     private String document;
+    @Setter 
     private String driverLicense;
+    @Setter 
     private String licenseCategory;
     private String status;
 
