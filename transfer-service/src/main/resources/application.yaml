@@ -1,0 +1,16 @@
+server.port: 8082
+
+spring:
+  application:
+    name: transfer-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/transferdb
+    username: postgres
+    password: postgres
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false
