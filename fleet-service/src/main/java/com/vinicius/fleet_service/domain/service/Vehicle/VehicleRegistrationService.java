@@ -1,4 +1,4 @@
-package com.vinicius.fleet_service.domain.service;
+package com.vinicius.fleet_service.domain.service.Vehicle;
 
 import java.util.UUID;
 
@@ -20,6 +20,7 @@ public class VehicleRegistrationService {
 
     @Transactional
     public VehicleResponse createVehicle(VehicleCrudRequest vehicleRequest) {
+        
         Vehicle newVehicle = Vehicle.create(
                 vehicleRequest.getLicensePlate(),
                 vehicleRequest.getModel(),
@@ -27,12 +28,14 @@ public class VehicleRegistrationService {
                 vehicleRequest.getWeightCapacity(),
                 vehicleRequest.getVolumeCapacity());
 
-        return mapToVehicleResponse(newVehicle);
+        Vehicle savedVehicle = vehicleRepository.save(newVehicle);
+
+        return mapToVehicleResponse(savedVehicle);
     }
 
     @Transactional
-    public VehicleResponse updateVehicle(UUID id, VehicleCrudRequest vehicleRequest) {
-        Vehicle existingVehicle = vehicleRepository.findById(id)
+    public VehicleResponse updateVehicle(UUID vehicleId, VehicleCrudRequest vehicleRequest) {
+        Vehicle existingVehicle = vehicleRepository.findById(vehicleId)
                 .orElseThrow(() -> new IllegalArgumentException("Vehicle not found"));
 
         existingVehicle.setLicensePlate(vehicleRequest.getLicensePlate());
@@ -41,7 +44,9 @@ public class VehicleRegistrationService {
         existingVehicle.setWeightCapacity(vehicleRequest.getWeightCapacity());
         existingVehicle.setVolumeCapacity(vehicleRequest.getVolumeCapacity());
 
-        return mapToVehicleResponse(existingVehicle);
+        Vehicle updatedVehicle = vehicleRepository.save(existingVehicle);
+
+        return mapToVehicleResponse(updatedVehicle);
     }
 
     private VehicleResponse mapToVehicleResponse(Vehicle vehicle) {

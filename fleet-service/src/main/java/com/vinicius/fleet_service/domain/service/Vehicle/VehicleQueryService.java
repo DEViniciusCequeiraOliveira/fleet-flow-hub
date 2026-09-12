@@ -1,4 +1,4 @@
-package com.vinicius.fleet_service.domain.service;
+package com.vinicius.fleet_service.domain.service.Vehicle;
 
 import java.util.UUID;
 
@@ -15,18 +15,17 @@ import lombok.RequiredArgsConstructor;
 /**
  * VehicleQueryService
  */
-@Service 
-@RequiredArgsConstructor 
+@Service
+@RequiredArgsConstructor
 public class VehicleQueryService {
 
     private final VehicleRepository vehicleRepository;
 
     public VehicleResponse getVehicleById(UUID vehicleId) {
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new IllegalArgumentException("Vehicle not found")); 
-        return  mapToVehicleResponse(vehicle);                
+                .orElseThrow(() -> new IllegalArgumentException("Vehicle not found"));
+        return mapToVehicleResponse(vehicle);
     }
-
 
     public Page<VehicleResponse> getVehicles(Pageable pageable) {
         Page<Vehicle> vehiclePage = vehicleRepository.findAll(pageable);
@@ -43,7 +42,7 @@ public class VehicleQueryService {
                 .volumeCapacity(vehicle.getVolumeCapacity())
                 .status(vehicle.getStatus())
                 .build();
-        return response;        
+        return response;
     }
-    
+
 }

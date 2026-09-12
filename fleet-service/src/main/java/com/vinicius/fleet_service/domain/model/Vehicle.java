@@ -21,23 +21,28 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Setter(AccessLevel.PRIVATE)
 public class Vehicle {
-    
-    @Id 
+
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Setter 
+    @Setter
     private String licensePlate;
-    @Setter 
+    @Setter
     private String model;
-    @Setter 
+    @Setter
     private String type;
-    @Setter 
+    @Setter
     private Double weightCapacity;
-    @Setter 
+    @Setter
     private Double volumeCapacity;
     private String status;
 
-    public static Vehicle create(String licensePlate, String model, String type, Double weightCapacity, Double volumeCapacity) {
+    public static Vehicle create(
+            String licensePlate,
+            String model,
+            String type,
+            Double weightCapacity,
+            Double volumeCapacity) {
         Vehicle vehicle = new Vehicle();
         vehicle.id = UUID.randomUUID();
         vehicle.licensePlate = licensePlate;

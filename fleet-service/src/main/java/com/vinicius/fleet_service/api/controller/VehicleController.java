@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vinicius.fleet_service.api.dto.request.VehicleCrudRequest;
 import com.vinicius.fleet_service.api.dto.response.VehicleResponse;
-import com.vinicius.fleet_service.domain.service.VehicleQueryService;
-import com.vinicius.fleet_service.domain.service.VehicleRegistrationService;
+import com.vinicius.fleet_service.domain.service.Vehicle.VehicleQueryService;
+import com.vinicius.fleet_service.domain.service.Vehicle.VehicleRegistrationService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +35,9 @@ public class VehicleController {
         return vehicleQueryService.getVehicles(pageable);
     }
 
-    @GetMapping("/{id}")
-    public VehicleResponse getVehicleById(@PathVariable UUID id) {
-        return vehicleQueryService.getVehicleById(id);
+    @GetMapping("/{vehicleId}")
+    public VehicleResponse getVehicleById(@PathVariable UUID vehicleId) {
+        return vehicleQueryService.getVehicleById(vehicleId);
     }
 
     @PostMapping
@@ -45,9 +45,9 @@ public class VehicleController {
         return vehicleRegistrationService.createVehicle(vehicleRequest);
     }
 
-    @PutMapping("/{id}")
-    public VehicleResponse updateVehicle(@PathVariable UUID id, @Valid @RequestBody VehicleCrudRequest vehicleRequest) {
-        return vehicleRegistrationService.updateVehicle(id, vehicleRequest);
+    @PutMapping("/{vehicleId}")
+    public VehicleResponse updateVehicle(@PathVariable UUID vehicleId, @Valid @RequestBody VehicleCrudRequest vehicleRequest) {
+        return vehicleRegistrationService.updateVehicle(vehicleId, vehicleRequest);
     }
 
 }
