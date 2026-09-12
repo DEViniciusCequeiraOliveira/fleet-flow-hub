@@ -3,6 +3,9 @@ package com.vinicius.fleet_service.domain.model;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,12 +21,19 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Setter(AccessLevel.PRIVATE)
 public class Vehicle {
-
+    
+    @Id 
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Setter 
     private String licensePlate;
+    @Setter 
     private String model;
+    @Setter 
     private String type;
+    @Setter 
     private Double weightCapacity;
+    @Setter 
     private Double volumeCapacity;
     private String status;
 
