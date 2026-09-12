@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.fleet_service.api.dto.response.DriverResponse;
+import com.vinicius.fleet_service.application.utility.Mapper;
 import com.vinicius.fleet_service.domain.model.Driver;
 import com.vinicius.fleet_service.domain.repository.DriverRepository;
 
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class DriverQueryService {
 
     final private DriverRepository driverRepository;
+    private final Mapper mapper;
 
     public Page<DriverResponse> getDrivers(Pageable pageable) {
         Page<Driver> driverPage = driverRepository.findAll(pageable);
@@ -30,14 +32,7 @@ public class DriverQueryService {
     }
 
     private DriverResponse mapToDriverResponse(Driver driver) {
-        DriverResponse response = DriverResponse.builder()
-                .id(driver.getId())
-                .name(driver.getName())
-                .document(driver.getDocument())
-                .driverLicense(driver.getDriverLicense())
-                .licenseCategory(driver.getLicenseCategory())
-                .status(driver.getStatus())
-                .build();
-        return response;
+        return mapper.convert(driver, DriverResponse.class);
     }
+
 }

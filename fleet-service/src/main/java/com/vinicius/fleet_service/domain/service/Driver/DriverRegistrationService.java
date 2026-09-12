@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vinicius.fleet_service.api.dto.request.DriverCrudRequest;
 import com.vinicius.fleet_service.api.dto.response.DriverResponse;
+import com.vinicius.fleet_service.application.utility.Mapper;
 import com.vinicius.fleet_service.domain.model.Driver;
 import com.vinicius.fleet_service.domain.repository.DriverRepository;
 
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class DriverRegistrationService {
 
     private final DriverRepository driverRepository;
+    private final Mapper mapper;
 
     @Transactional()
     public DriverResponse createDriver(DriverCrudRequest driverRequest) {
@@ -47,17 +49,7 @@ public class DriverRegistrationService {
 
 
     private DriverResponse mapToDriverResponse(Driver driver) {
-        DriverResponse response = DriverResponse.builder()
-                .id(driver.getId())
-                .name(driver.getName())
-                .document(driver.getDocument())
-                .driverLicense(driver.getDriverLicense())
-                .licenseCategory(driver.getLicenseCategory())
-                .status(driver.getStatus())
-                .build();
-
-        return response;
-
+       return mapper.convert(driver, DriverResponse.class);
     }
 
 }

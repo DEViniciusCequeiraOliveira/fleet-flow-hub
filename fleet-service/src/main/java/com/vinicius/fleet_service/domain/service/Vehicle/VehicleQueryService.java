@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.fleet_service.api.dto.response.VehicleResponse;
+import com.vinicius.fleet_service.application.utility.Mapper;
 import com.vinicius.fleet_service.domain.model.Vehicle;
 import com.vinicius.fleet_service.domain.repository.VehicleRepository;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class VehicleQueryService {
 
     private final VehicleRepository vehicleRepository;
+    private final Mapper mapper;
 
     public VehicleResponse getVehicleById(UUID vehicleId) {
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
@@ -33,16 +35,7 @@ public class VehicleQueryService {
     }
 
     private VehicleResponse mapToVehicleResponse(Vehicle vehicle) {
-        VehicleResponse response = VehicleResponse.builder()
-                .id(vehicle.getId())
-                .licensePlate(vehicle.getLicensePlate())
-                .model(vehicle.getModel())
-                .type(vehicle.getType())
-                .weightCapacity(vehicle.getWeightCapacity())
-                .volumeCapacity(vehicle.getVolumeCapacity())
-                .status(vehicle.getStatus())
-                .build();
-        return response;
+        return mapper.convert(vehicle, VehicleResponse.class);
     }
 
 }

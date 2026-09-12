@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vinicius.fleet_service.api.dto.request.VehicleCrudRequest;
 import com.vinicius.fleet_service.api.dto.response.VehicleResponse;
+import com.vinicius.fleet_service.application.utility.Mapper;
 import com.vinicius.fleet_service.domain.model.Vehicle;
 import com.vinicius.fleet_service.domain.repository.VehicleRepository;
 
@@ -17,10 +18,11 @@ import lombok.RequiredArgsConstructor;
 public class VehicleRegistrationService {
 
     final private VehicleRepository vehicleRepository;
+    private final Mapper mapper;
 
     @Transactional
     public VehicleResponse createVehicle(VehicleCrudRequest vehicleRequest) {
-        
+
         Vehicle newVehicle = Vehicle.create(
                 vehicleRequest.getLicensePlate(),
                 vehicleRequest.getModel(),
@@ -50,15 +52,7 @@ public class VehicleRegistrationService {
     }
 
     private VehicleResponse mapToVehicleResponse(Vehicle vehicle) {
-        VehicleResponse response = VehicleResponse.builder()
-                .id(vehicle.getId())
-                .licensePlate(vehicle.getLicensePlate())
-                .model(vehicle.getModel())
-                .type(vehicle.getType())
-                .weightCapacity(vehicle.getWeightCapacity())
-                .volumeCapacity(vehicle.getVolumeCapacity())
-                .status(vehicle.getStatus())                
-                .build();        
-        return response;
+        return mapper.convert(vehicle, VehicleResponse.class);
     }
+
 }
