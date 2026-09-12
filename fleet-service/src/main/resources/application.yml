@@ -1,0 +1,13 @@
+server.port: 8081
+
+spring
+  application
+    name: fleet-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fleetdb
+    username: postgres
+    password: postgres
