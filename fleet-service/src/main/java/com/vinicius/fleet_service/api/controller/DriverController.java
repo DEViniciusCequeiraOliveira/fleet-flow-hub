@@ -31,7 +31,7 @@ public class DriverController {
     final private DriverQueryService driverQueryService;
 
     @GetMapping
-    public Page<DriverResponse> getVehicles(@PageableDefault Pageable pageable) {
+    public Page<DriverResponse> getDrivers(@PageableDefault Pageable pageable) {
         return driverQueryService.getDrivers(pageable);
     }
 
