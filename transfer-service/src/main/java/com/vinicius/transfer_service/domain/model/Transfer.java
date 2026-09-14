@@ -67,13 +67,13 @@ public class Transfer {
         changeStatusTo(TransferStatus.CANCELLED);
     }
 
-    public UUID addInvoce(UUID invoiceId) {
+    public String addInvoce(String invoiceId) {
         TransferInvoice transferInvoice = TransferInvoice.create(this, invoiceId);
         getInvoices().add(transferInvoice);
         return transferInvoice.getId().getInvoiceId();
     }
 
-    public void removeInvoice(UUID invoiceId) {
+    public void removeInvoice(String invoiceId) {
         getInvoices().removeIf(invoice -> invoice.getId().getInvoiceId().equals(invoiceId));
     }
 

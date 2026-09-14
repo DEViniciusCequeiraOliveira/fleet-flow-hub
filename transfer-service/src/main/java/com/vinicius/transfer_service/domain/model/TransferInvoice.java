@@ -1,7 +1,5 @@
 package com.vinicius.transfer_service.domain.model;
 
-import java.util.UUID;
-
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -21,13 +19,13 @@ public class TransferInvoice {
     @EmbeddedId
     @EqualsAndHashCode.Include
     private TransferInvoiceId id;
-    
+
     @MapsId("transferId")
-    @ManyToOne(optional = false)     
+    @ManyToOne(optional = false)
     @Getter(AccessLevel.PRIVATE)
     private Transfer transfer;
 
-    public static TransferInvoice create(Transfer transfer, UUID invoiceId) {
+    public static TransferInvoice create(Transfer transfer, String invoiceId) {
         TransferInvoice transferInvoice = new TransferInvoice();
         transferInvoice.id = TransferInvoiceId.of(transfer.getId(), invoiceId);
         transferInvoice.transfer = transfer;

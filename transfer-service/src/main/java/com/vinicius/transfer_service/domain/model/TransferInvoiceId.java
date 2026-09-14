@@ -21,9 +21,9 @@ public class TransferInvoiceId {
     @Include
     private UUID transferId;
     @Include
-    private UUID invoiceId;
+    private String invoiceId;
 
-    static TransferInvoiceId of(UUID transferId, UUID invoiceId) {
+    static TransferInvoiceId of(UUID transferId, String invoiceId) {
         TransferInvoiceId transferInvoiceId = new TransferInvoiceId();
         transferInvoiceId.transferId = transferId;
         transferInvoiceId.invoiceId = invoiceId;
