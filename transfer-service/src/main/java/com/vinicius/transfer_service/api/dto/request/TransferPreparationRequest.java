@@ -20,7 +20,6 @@ public class TransferPreparationRequest {
     private UUID driverId;
     private TransferStatus status;
     private OffsetDateTime startedAt;
-    private OffsetDateTime estimatedArrivalAt;
     private OffsetDateTime arrivedAt;
     private List<TransferInvoicePreparationRequest> invoices;
 }

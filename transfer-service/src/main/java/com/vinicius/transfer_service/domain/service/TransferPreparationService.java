@@ -8,6 +8,8 @@ import com.vinicius.transfer_service.api.dto.response.TransferPreparationRespons
 import com.vinicius.transfer_service.application.utility.Mapper;
 import com.vinicius.transfer_service.domain.model.Transfer;
 import com.vinicius.transfer_service.domain.repository.TransferRepository;
+import com.vinicius.transfer_service.infrastructure.utility.http.client.DriverAPIClient;
+import com.vinicius.transfer_service.infrastructure.utility.http.client.model.DriverPayoutResultModel;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,27 +18,28 @@ import lombok.RequiredArgsConstructor;
 public class TransferPreparationService {
 
     final private TransferRepository transferRepository;
+    final private DriverAPIClient driverAPIClient;
     final private Mapper mapper;
 
     @Transactional
     public TransferPreparationResponse prepareTransfer(TransferPreparationRequest request) {
+        DriverPayoutResultModel driver = driverAPIClient.getDriverById(request.getDriverId());
+
         Transfer transfer = Transfer.plan(
                 request.getOriginDistributionCenterId(),
                 request.getDestinationDistributionCenterId(),
-                request.getVehicleId(),
-                request.getDriverId(),
-                request.getEstimatedArrivalAt());
+                driver.getId(),
+                request.getDriverId());
 
         request.getInvoices().forEach(invoiceRequest -> {
             transfer.addInvoce(invoiceRequest.getInvoice());
         });
 
         Transfer transferSaved = transferRepository.save(transfer);
-
         return mapToResponse(transferSaved);
     }
 
-    private TransferPreparationResponse mapToResponse(Transfer transferSaved) {
-        return mapper.convert(transferSaved, TransferPreparationResponse.class);
+    private TransferPreparationResponse mapToResponse(Transfer transfer) {
+        return mapper.convert(transfer, TransferPreparationResponse.class);
     }
 }

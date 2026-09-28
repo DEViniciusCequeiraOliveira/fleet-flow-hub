@@ -37,7 +37,7 @@ public class Transfer {
     private List<TransferInvoice> invoices = new ArrayList<>();
 
     public static Transfer plan(String originDistributionCenterId, String destinationDistributionCenterId,
-            UUID vehicleId, UUID driverId, OffsetDateTime estimatedArrivalAt) {
+            UUID vehicleId, UUID driverId) {
         Transfer transfer = new Transfer();
         transfer.id = UUID.randomUUID();
         transfer.originDistributionCenterId = originDistributionCenterId;
@@ -45,7 +45,6 @@ public class Transfer {
         transfer.vehicleId = vehicleId;
         transfer.driverId = driverId;
         transfer.status = TransferStatus.PLANNED;
-        transfer.estimatedArrivalAt = estimatedArrivalAt;
         return transfer;
     }
 
@@ -69,12 +68,12 @@ public class Transfer {
 
     public String addInvoce(String invoiceId) {
         TransferInvoice transferInvoice = TransferInvoice.create(this, invoiceId);
-        getInvoices().add(transferInvoice);
+        this.invoices.add(transferInvoice);
         return transferInvoice.getId().getInvoiceId();
     }
 
     public void removeInvoice(String invoiceId) {
-        getInvoices().removeIf(invoice -> invoice.getId().getInvoiceId().equals(invoiceId));
+        this.invoices.removeIf(invoice -> invoice.getId().getInvoiceId().equals(invoiceId));
     }
 
     public List<TransferInvoice> getInvoices() {
