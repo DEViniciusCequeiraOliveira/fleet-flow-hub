@@ -2,8 +2,7 @@ package com.vinicius.transfer_service.api.dto.response;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-
-import org.hibernate.validator.constraints.UUID;
+import java.util.UUID;
 
 import com.vinicius.transfer_service.domain.model.TransferStatus;
 

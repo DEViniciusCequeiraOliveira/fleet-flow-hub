@@ -24,6 +24,7 @@ import lombok.Setter;
 public class Transfer {
 
     @Id
+    @EqualsAndHashCode.Include
     private UUID id;
     private String originDistributionCenterId;
     private String destinationDistributionCenterId;

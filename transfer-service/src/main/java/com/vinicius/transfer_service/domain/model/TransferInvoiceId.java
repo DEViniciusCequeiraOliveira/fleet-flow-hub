@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode.Include;
 
 /**
  * TransferInvoiceId
@@ -18,9 +17,10 @@ import lombok.EqualsAndHashCode.Include;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TransferInvoiceId {
 
-    @Include
+    @EqualsAndHashCode.Include
     private UUID transferId;
-    @Include
+    
+    @EqualsAndHashCode.Include
     private String invoiceId;
 
     static TransferInvoiceId of(UUID transferId, String invoiceId) {

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data 
 public class TransferInvoicePreparationResponse {
-    private String invoice;
+    private String invoiceId;
 }
