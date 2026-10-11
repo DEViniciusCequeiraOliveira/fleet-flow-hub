@@ -9,7 +9,9 @@ import com.vinicius.transfer_service.application.utility.Mapper;
 import com.vinicius.transfer_service.domain.model.Transfer;
 import com.vinicius.transfer_service.domain.repository.TransferRepository;
 import com.vinicius.transfer_service.infrastructure.utility.http.client.DriverAPIClient;
+import com.vinicius.transfer_service.infrastructure.utility.http.client.VehicleAPIClient;
 import com.vinicius.transfer_service.infrastructure.utility.http.client.model.DriverPayoutResultModel;
+import com.vinicius.transfer_service.infrastructure.utility.http.client.model.VehiclePayoutResultModel;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,17 +21,19 @@ public class TransferPreparationService {
 
     final private TransferRepository transferRepository;
     final private DriverAPIClient driverAPIClient;
+    final private VehicleAPIClient vehicleAPIClient;
     final private Mapper mapper;
 
     @Transactional
     public TransferPreparationResponse prepareTransfer(TransferPreparationRequest request) {
         DriverPayoutResultModel driver = driverAPIClient.getDriverById(request.getDriverId());
+        VehiclePayoutResultModel vehicle = vehicleAPIClient.getVehicleById(request.getVehicleId());
 
         Transfer transfer = Transfer.plan(
                 request.getOriginDistributionCenterId(),
                 request.getDestinationDistributionCenterId(),
                 driver.getId(),
-                request.getDriverId());
+                vehicle.getId());
 
         request.getInvoices().forEach(invoiceRequest -> {
             transfer.addInvoce(invoiceRequest.getInvoice());
