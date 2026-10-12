@@ -1,0 +1,16 @@
+server.port: 8084
+
+spring:
+  application:
+    name: shipment-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shipmentdb
+    username: postgres
+    password: postgres
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false
