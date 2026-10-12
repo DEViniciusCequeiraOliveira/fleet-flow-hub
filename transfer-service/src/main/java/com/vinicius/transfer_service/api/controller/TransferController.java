@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vinicius.transfer_service.api.dto.request.TransferPreparationRequest;
 import com.vinicius.transfer_service.api.dto.response.TransferPreparationResponse;
+import com.vinicius.transfer_service.api.dto.response.TransferQueryCompleteResponse;
+import com.vinicius.transfer_service.api.dto.response.TransferQueryResumeResponse;
 import com.vinicius.transfer_service.domain.service.TransferCheckpointService;
 import com.vinicius.transfer_service.domain.service.TransferPreparationService;
 import com.vinicius.transfer_service.domain.service.TransferQueryService;
@@ -30,12 +32,12 @@ public class TransferController {
     final private TransferQueryService transferQueryService;
 
     @GetMapping
-    public Page<TransferPreparationResponse> getTransfers(@PageableDefault Pageable pageable) {
+    public Page<TransferQueryResumeResponse> getTransfers(@PageableDefault Pageable pageable) {
         return transferQueryService.getTransfers(pageable);
     }
 
     @GetMapping("/{transferId}")
-    public TransferPreparationResponse getTransfer(@PathVariable UUID transferId) {        
+    public TransferQueryCompleteResponse getTransfer(@PathVariable UUID transferId) {        
         return transferQueryService.getTransfer(transferId);
     }
 

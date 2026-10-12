@@ -6,7 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.vinicius.transfer_service.api.dto.response.TransferPreparationResponse;
+import com.vinicius.transfer_service.api.dto.response.TransferQueryCompleteResponse;
+import com.vinicius.transfer_service.api.dto.response.TransferQueryResumeResponse;
 import com.vinicius.transfer_service.application.utility.Mapper;
 import com.vinicius.transfer_service.domain.model.Transfer;
 import com.vinicius.transfer_service.domain.repository.TransferRepository;
@@ -20,19 +21,23 @@ public class TransferQueryService {
     private final TransferRepository transferRepository;
     private final Mapper mapper;
 
-    public Page<TransferPreparationResponse> getTransfers(Pageable pageable) {
+    public Page<TransferQueryResumeResponse> getTransfers(Pageable pageable) {
         Page<Transfer> transferPage = transferRepository.findAll(pageable);
-        return transferPage.map(this::mapToTransferPreparationResponse);
+        return transferPage.map(this::mapToTransferQueryResumeResponse);
     }
 
-    public TransferPreparationResponse getTransfer(UUID transferId) {
+    public TransferQueryCompleteResponse getTransfer(UUID transferId) {
         Transfer transfer = transferRepository.findById(transferId)
                 .orElseThrow(() -> new IllegalArgumentException("Transfer not found"));
-        return mapToTransferPreparationResponse(transfer);
+        return mapToTransferQueryCompleteResponse(transfer);
     }
 
-    private TransferPreparationResponse mapToTransferPreparationResponse(Transfer transfer) {
-        return mapper.convert(transfer, TransferPreparationResponse.class);
+    private TransferQueryResumeResponse mapToTransferQueryResumeResponse(Transfer transfer) {
+        return mapper.convert(transfer, TransferQueryResumeResponse.class);
+    }
+
+    private TransferQueryCompleteResponse mapToTransferQueryCompleteResponse(Transfer transfer) {
+        return mapper.convert(transfer, TransferQueryCompleteResponse.class);
     }
 
 }
