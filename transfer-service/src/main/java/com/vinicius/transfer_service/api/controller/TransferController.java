@@ -2,6 +2,10 @@ package com.vinicius.transfer_service.api.controller;
 
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +16,7 @@ import com.vinicius.transfer_service.api.dto.request.TransferPreparationRequest;
 import com.vinicius.transfer_service.api.dto.response.TransferPreparationResponse;
 import com.vinicius.transfer_service.domain.service.TransferCheckpointService;
 import com.vinicius.transfer_service.domain.service.TransferPreparationService;
+import com.vinicius.transfer_service.domain.service.TransferQueryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +27,17 @@ public class TransferController {
 
     final private TransferPreparationService transferPreparationService;
     final private TransferCheckpointService transferCheckpointService;
+    final private TransferQueryService transferQueryService;
+
+    @GetMapping
+    public Page<TransferPreparationResponse> getTransfers(@PageableDefault Pageable pageable) {
+        return transferQueryService.getTransfers(pageable);
+    }
+
+    @GetMapping("/{transferId}")
+    public TransferPreparationResponse getTransfer(@PathVariable UUID transferId) {        
+        return transferQueryService.getTransfer(transferId);
+    }
 
     @PostMapping()
     public TransferPreparationResponse planTransfer(@RequestBody TransferPreparationRequest request) {
