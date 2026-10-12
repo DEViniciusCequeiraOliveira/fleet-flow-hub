@@ -18,7 +18,7 @@ public enum TransferStatus {
 
     public boolean canTransitionFrom(TransferStatus  newStatus) {
         TransferStatus currentStatus = this;
-        return !newStatus.allowedPreviousStatuses.contains(currentStatus);
+        return newStatus.allowedPreviousStatuses.contains(currentStatus);
     }
 
     public boolean canNotTransitionFrom(TransferStatus newStatus) {

@@ -81,7 +81,7 @@ public class Transfer {
         return Collections.unmodifiableList(this.invoices);
     }
 
-    private void changeStatusTo(TransferStatus newStatus) {
+    private void changeStatusTo(TransferStatus newStatus) {        
         if (newStatus != null && this.getStatus().canNotTransitionFrom(newStatus)) {
             throw new IllegalArgumentException(
                     "Invalid status transition from " + this.getStatus() +
