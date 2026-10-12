@@ -29,23 +29,23 @@ public class TransferController {
     }
 
     @PostMapping("/start/{transferId}")
-    public void startTransfer(@PathVariable UUID transferId) {
-        transferCheckpointService.startTransfer(transferId);
+    public TransferPreparationResponse startTransfer(@PathVariable UUID transferId) {
+        return transferCheckpointService.startTransfer(transferId);
     }
 
     @PostMapping("/arrive/{transferId}")
-    public void arriveTransfer(@PathVariable UUID transferId) {
-        transferCheckpointService.arriveTransfer(transferId);
+    public TransferPreparationResponse arriveTransfer(@PathVariable UUID transferId) {
+        return transferCheckpointService.arriveTransfer(transferId);
     }
 
     @PostMapping("/complete/{transferId}")
-    public void completeTransfer(@PathVariable UUID transferId) {
-        transferCheckpointService.completeTransfer(transferId);
+    public TransferPreparationResponse completeTransfer(@PathVariable UUID transferId) {
+        return transferCheckpointService.completeTransfer(transferId);
     }
 
     @PostMapping("/cancel/{transferId}")
-    public void cancelTransfer(@PathVariable UUID transferId) {
-        transferCheckpointService.cancelTransfer(transferId);
+    public TransferPreparationResponse cancelTransfer(@PathVariable UUID transferId) {
+        return transferCheckpointService.cancelTransfer(transferId);
     }
 
 }

@@ -6,7 +6,6 @@ import org.modelmapper.convention.NamingConventions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.vinicius.transfer_service.api.dto.request.TransferInvoicePreparationRequest;
 import com.vinicius.transfer_service.api.dto.response.TransferInvoicePreparationResponse;
 import com.vinicius.transfer_service.application.utility.Mapper;
 import com.vinicius.transfer_service.domain.model.TransferInvoice;
@@ -27,8 +26,9 @@ public class ModelMapperConfig {
                 .setMatchingStrategy(MatchingStrategies.STRICT);
 
         modelMapper.createTypeMap(TransferInvoice.class, TransferInvoicePreparationResponse.class)
-                .addMappings(mapping ->
-                        mapping.map(transferInvoice -> transferInvoice.getId().getInvoiceId(), TransferInvoicePreparationResponse::setInvoiceId));
+                .addMappings(mapping -> mapping.map(
+                        transferInvoice -> transferInvoice.getId().getInvoiceId(),
+                        (destination, value) -> destination.setInvoiceId((String) value)));
 
     }
 }
