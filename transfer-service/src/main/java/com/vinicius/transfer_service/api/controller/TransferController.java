@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vinicius.transfer_service.api.dto.request.TransferPreparationRequest;
+import com.vinicius.transfer_service.api.dto.response.TransferCheckpointResponse;
 import com.vinicius.transfer_service.api.dto.response.TransferPreparationResponse;
 import com.vinicius.transfer_service.api.dto.response.TransferQueryCompleteResponse;
 import com.vinicius.transfer_service.api.dto.response.TransferQueryResumeResponse;
@@ -37,7 +38,7 @@ public class TransferController {
     }
 
     @GetMapping("/{transferId}")
-    public TransferQueryCompleteResponse getTransfer(@PathVariable UUID transferId) {        
+    public TransferQueryCompleteResponse getTransfer(@PathVariable UUID transferId) {
         return transferQueryService.getTransfer(transferId);
     }
 
@@ -47,22 +48,22 @@ public class TransferController {
     }
 
     @PostMapping("/start/{transferId}")
-    public TransferPreparationResponse startTransfer(@PathVariable UUID transferId) {
+    public TransferCheckpointResponse startTransfer(@PathVariable UUID transferId) {
         return transferCheckpointService.startTransfer(transferId);
     }
 
     @PostMapping("/arrive/{transferId}")
-    public TransferPreparationResponse arriveTransfer(@PathVariable UUID transferId) {
+    public TransferCheckpointResponse arriveTransfer(@PathVariable UUID transferId) {
         return transferCheckpointService.arriveTransfer(transferId);
     }
 
     @PostMapping("/complete/{transferId}")
-    public TransferPreparationResponse completeTransfer(@PathVariable UUID transferId) {
+    public TransferCheckpointResponse completeTransfer(@PathVariable UUID transferId) {
         return transferCheckpointService.completeTransfer(transferId);
     }
 
     @PostMapping("/cancel/{transferId}")
-    public TransferPreparationResponse cancelTransfer(@PathVariable UUID transferId) {
+    public TransferCheckpointResponse cancelTransfer(@PathVariable UUID transferId) {
         return transferCheckpointService.cancelTransfer(transferId);
     }
 

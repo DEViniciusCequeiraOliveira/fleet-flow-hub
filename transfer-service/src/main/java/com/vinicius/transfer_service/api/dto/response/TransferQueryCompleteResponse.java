@@ -19,5 +19,5 @@ public class TransferQueryCompleteResponse {
     private OffsetDateTime startedAt;
     private OffsetDateTime estimatedArrivalAt;
     private OffsetDateTime arrivedAt;
-    private List<TransferInvoicePreparationResponse> invoices;
+    private List<TransferInvoiceQueryCompleteResponse> invoices;
 }

@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vinicius.transfer_service.api.dto.response.TransferPreparationResponse;
+import com.vinicius.transfer_service.api.dto.response.TransferCheckpointResponse;
 import com.vinicius.transfer_service.application.utility.Mapper;
 import com.vinicius.transfer_service.domain.model.Transfer;
 import com.vinicius.transfer_service.domain.repository.TransferRepository;
@@ -23,47 +23,47 @@ public class TransferCheckpointService {
     final private TransferRepository transferRepository;
 
     @Transactional
-    public TransferPreparationResponse startTransfer(UUID transferId) {
+    public TransferCheckpointResponse startTransfer(UUID transferId) {
         Transfer transfer = transferRepository.findById(transferId)
                 .orElseThrow(() -> new IllegalArgumentException("Transfer not found"));
 
         transfer.start();
 
         Transfer transferSaved = transferRepository.save(transfer);
-        return mapper.convert(transferSaved, TransferPreparationResponse.class);
+        return mapper.convert(transferSaved, TransferCheckpointResponse.class);
     }
 
     @Transactional
-    public TransferPreparationResponse arriveTransfer(UUID transferId) {
+    public TransferCheckpointResponse arriveTransfer(UUID transferId) {
         Transfer transfer = transferRepository.findById(transferId)
                 .orElseThrow(() -> new IllegalArgumentException("Transfer not found"));
 
         transfer.arrive();
 
         Transfer transferSaved = transferRepository.save(transfer);
-        return mapper.convert(transferSaved, TransferPreparationResponse.class);
+        return mapper.convert(transferSaved, TransferCheckpointResponse.class);
     }
 
     @Transactional
-    public TransferPreparationResponse completeTransfer(UUID transferId) {
+    public TransferCheckpointResponse completeTransfer(UUID transferId) {
         Transfer transfer = transferRepository.findById(transferId)
                 .orElseThrow(() -> new IllegalArgumentException("Transfer not found"));
 
         transfer.complete();
 
         Transfer transferSaved = transferRepository.save(transfer);
-        return mapper.convert(transferSaved, TransferPreparationResponse.class);
+        return mapper.convert(transferSaved, TransferCheckpointResponse.class);
     }
 
     @Transactional
-    public TransferPreparationResponse cancelTransfer(UUID transferId) {
+    public TransferCheckpointResponse cancelTransfer(UUID transferId) {
         Transfer transfer = transferRepository.findById(transferId)
                 .orElseThrow(() -> new IllegalArgumentException("Transfer not found"));
 
         transfer.cancel();
 
         Transfer transferSaved = transferRepository.save(transfer);
-        return mapper.convert(transferSaved, TransferPreparationResponse.class);
+        return mapper.convert(transferSaved, TransferCheckpointResponse.class);
     }
 
 }
