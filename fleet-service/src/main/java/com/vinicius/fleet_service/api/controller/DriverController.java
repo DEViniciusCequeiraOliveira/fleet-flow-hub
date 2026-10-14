@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vinicius.fleet_service.api.dto.request.DriverCrudRequest;
 import com.vinicius.fleet_service.api.dto.response.DriverResponse;
 import com.vinicius.fleet_service.domain.service.Driver.DriverQueryService;
-import com.vinicius.fleet_service.domain.service.Driver.DriverRegistrationService;
+import com.vinicius.fleet_service.domain.service.Driver.DriverManagementService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class DriverController {
 
-    final private DriverRegistrationService driverRegistrationService;
+    final private DriverManagementService driverManagementService;
     final private DriverQueryService driverQueryService;
 
     @GetMapping
@@ -42,13 +42,13 @@ public class DriverController {
 
     @PostMapping
     public DriverResponse createDriver(@Valid @RequestBody DriverCrudRequest driverRequest) {
-        return driverRegistrationService.createDriver(driverRequest);
+        return driverManagementService.createDriver(driverRequest);
     }
 
     @PutMapping("/{driverId}")
     public DriverResponse updateDriver(@PathVariable UUID driverId,
             @Valid @RequestBody DriverCrudRequest driverRequest) {
-        return driverRegistrationService.updateDriver(driverId, driverRequest);
+        return driverManagementService.updateDriver(driverId, driverRequest);
     }
 
 }

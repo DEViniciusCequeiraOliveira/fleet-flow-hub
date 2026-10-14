@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class VehicleRegistrationService {
+public class VehicleManagementService {
 
     final private VehicleRepository vehicleRepository;
     private final Mapper mapper;

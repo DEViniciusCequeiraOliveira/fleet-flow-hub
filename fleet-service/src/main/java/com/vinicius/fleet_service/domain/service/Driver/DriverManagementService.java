@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class DriverRegistrationService {
+public class DriverManagementService {
 
     private final DriverRepository driverRepository;
     private final Mapper mapper;
