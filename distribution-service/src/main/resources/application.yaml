@@ -1,0 +1,16 @@
+server.port: 8085
+
+spring:
+  application:
+    name: distribution-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/distributiondb
+    username: postgres
+    password: postgres
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false
