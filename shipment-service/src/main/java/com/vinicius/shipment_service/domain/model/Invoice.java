@@ -80,8 +80,8 @@ public class Invoice {
     private void calculateTotalAmount() {
         BigDecimal total = items.stream()
                 .map(item -> item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-                
+                .reduce(BigDecimal.ZERO, (value, curr) -> value.add(curr));
+
         setTotalAmount(total);
     }
 }

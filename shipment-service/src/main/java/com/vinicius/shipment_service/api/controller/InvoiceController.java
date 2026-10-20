@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vinicius.shipment_service.api.dto.request.InvoiceCrudRequest;
+import com.vinicius.shipment_service.api.dto.response.InvoiceManagementResponse;
 import com.vinicius.shipment_service.api.dto.response.InvoiceQueryCompleteResponse;
 import com.vinicius.shipment_service.api.dto.response.InvoiceQueryResumeResponse;
 import com.vinicius.shipment_service.domain.service.Invoice.InvoiceManagementService;
 import com.vinicius.shipment_service.domain.service.Invoice.InvoiceQueryService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/invoices")
@@ -34,4 +39,10 @@ public class InvoiceController {
     public InvoiceQueryCompleteResponse getInvoiceById(@PathVariable UUID invoiceId) {
         return invoiceQueryService.getInvoiceById(invoiceId);
     }
+
+    @PostMapping
+    public InvoiceManagementResponse create(@RequestBody @Valid InvoiceCrudRequest invoice) {
+        return invoiceManagementService.createInvoice(invoice);
+    }
+
 }
