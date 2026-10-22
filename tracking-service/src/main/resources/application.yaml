@@ -1,0 +1,13 @@
+server.port: 8086
+
+spring:
+  application:
+    name: tracking-service
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false      
+  mongodb:
+    database: trackingdb
+    representation:
+      uuid: standard
+    uri: mongodb://root:123@localhost:27017

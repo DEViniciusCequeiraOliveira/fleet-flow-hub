@@ -23,10 +23,38 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     networks:
       - local-network
+  mongo:   
+    image: mongo:7.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db        
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123
+    ports:
+      - 27017:27017
+    networks:
+      - local-network          
+  mongo-express:
+    image: mongo-express
+    restart: always
+    depends_on:
+      - mongo      
+    ports:
+      - 8081:8081
+    networks:
+      - local-network      
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://root:123@mongo:27017/
+      ME_CONFIG_BASICAUTH_ENABLED: true
+      ME_CONFIG_BASICAUTH_USERNAME: mongoexpressuser
+      ME_CONFIG_BASICAUTH_PASSWORD: mongoexpresspass
+
 volumes:
   postgres-data:
   pgadmin-data:
-  kafka-data:
+  mongo-data:
+
 networks:
   local-network:
     driver: bridge
